@@ -1,6 +1,6 @@
 # begin to build a simple program that models Instagram
 # you should have a User class, a Photo class and a comment class
-
+require 'pry'
 class User
   attr_accessor :name
 
@@ -15,9 +15,15 @@ class User
 end
 
 class Photo
-  attr_accessor :user
+  #new photos not being added to @@photo array
+  attr_accessor :user, :photo
 
   @@all = []
+
+  def initialize(photo="filter")
+    @photo = photo
+    @@all << self
+  end
 
   def self.all
     @@all
@@ -27,17 +33,22 @@ class Photo
     Comment.all.select {|comment| comment.photo == self}
   end
 
-  def make_comment(comment)
-    comment = Comment.new
+  def make_comment(message)
+    comment = Comment.new(message)
     comment.photo = self
     Comment.all << comment
+    message
   end
 end
 
 class Comment
-  attr_accessor :photo
+  attr_accessor :photo, :text
 
   @@all = []
+
+  def initialize(text)
+    @text = text
+  end
 
   def self.all
     @@all
@@ -61,4 +72,3 @@ photo.comments
 # => [<comment1>]
 
 Comment.all
-#=> [<comment1>]
