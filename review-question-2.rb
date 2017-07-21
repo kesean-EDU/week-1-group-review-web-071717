@@ -1,10 +1,26 @@
 class Car
 
+  attr_reader :make, :model
 
+    @@cars = []
+
+  def initialize(make:, model:)
+    @make  = make
+    @model = model
+    @@cars << self
+  end
+
+  def drive
+    puts "VROOOOOOOOOOOOM!"
+  end
+
+  def self.all
+    @@cars
+  end
 
 end
 
-car = Car.new("volvo", "lightening")
+car = Car.new(make: "volvo", model: "lightening")
 car.make
 #=> "volvo"
 car.model
@@ -16,9 +32,9 @@ car.drive
 Car.all
 #=> [car1, car2, car3]
 
-BONUS:
+#BONUS:
 
-Car.new(make: "volvo", model: "lightening")
+#Car.new(make: "volvo", model: "lightening")
 
 car.make
 #=> "volvo"
